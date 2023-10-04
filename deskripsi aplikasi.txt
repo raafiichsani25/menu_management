@@ -1,0 +1,8 @@
+aplikasi ini dibangun oleh bahasa PHP Version 8.1.6 dengan framework codeigniter versi 3.1.10
+
+hosting 000webhost
+
+database : id21212337_perpus
+username : id21212337_panatagama
+password : @Perpuspanatagama23
+
