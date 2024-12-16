@@ -15,6 +15,8 @@ class Admin extends CI_Controller
 	public function index()
 	{
 
+		
+
 		$email = $this->session->userdata('email');
 
 		$data['user'] = $this->db->get_where('user', ['email' => $email])->row_array(); 

@@ -52,7 +52,7 @@ public function index()
 	$config['per_page'] = 3;
 
 
-  	$config['attributes'] = array('class' => 'page-link');
+  $config['attributes'] = array('class' => 'page-link');
 
 
 	// initialize

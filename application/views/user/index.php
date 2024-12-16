@@ -1,5 +1,4 @@
-
-        
+<div class="scrollbar">
         
                 <!-- Begin Page Content -->
                 <div class="container-fluid">

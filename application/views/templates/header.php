@@ -21,6 +21,31 @@
     <link href="<?= base_url('assets/');?>css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="<?= base_url('assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'); ?>" rel="stylesheet">
+
+
+     <style type="text/css">
+        
+        .scrollbar {
+            height: 500px;
+            width: auto;
+            overflow: scroll;
+        }
+
+        ::-webkit-scrollbar{
+
+        }
+
+        ::-webkit-scrollbar{
+            box-shadow: inset 0 0 3px grey;
+            border-radius: 10px ;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background: #007899;
+            border-radius: 10px;
+        }
+
+    </style>
     
 
 </head>

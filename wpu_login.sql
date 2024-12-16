@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Sep 2023 pada 10.31
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 8.1.6
+-- Waktu pembuatan: 16 Des 2024 pada 05.40
+-- Versi server: 10.4.17-MariaDB
+-- Versi PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `wpu_login`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `barang`
+--
+
+CREATE TABLE `barang` (
+  `id` int(11) NOT NULL,
+  `nama_barang` varchar(128) NOT NULL,
+  `gambar` varchar(128) NOT NULL,
+  `modal` int(11) NOT NULL,
+  `harga_jual` int(11) NOT NULL,
+  `stok` int(11) NOT NULL,
+  `qrcode_path` varchar(255) NOT NULL,
+  `qrcode_data` varchar(128) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `barang`
+--
+
+INSERT INTO `barang` (`id`, `nama_barang`, `gambar`, `modal`, `harga_jual`, `stok`, `qrcode_path`, `qrcode_data`, `date`) VALUES
+(21, 'felibet', 'download.jpeg', 11000, 25000, 0, 'felibet515.png', 'K4CJPY', '2024-07-22'),
+(22, 'Excel Ungu', 'excel.jpg', 10500, 12000, 40, 'excelungu829.png', 'ZP5HC2', '2024-07-22'),
+(24, 'Cat Choize Kitten Pink', 'cc_c.jpg', 23000, 25000, 88, 'catchoizekittenpink134.png', 'WUY8S3', '2024-10-14'),
+(25, 'Cat Choize Kitten Kuning', '_cat-choize_makanananakkucing-1kg-cat-choize-kitten-freshpack-1-kg-_full06.jpg', 23000, 25000, 40, 'catchoizekittenkuning559.png', 'NP1OZ4', '2024-10-14'),
+(32, 'Testing', 'default.jpg', 10000, 12000, 20, 'testing126.png', '0NITF5', '2024-12-04'),
+(33, 'Testing2', 'default.jpg', 10000, 12000, 3, 'testing2424.png', '994125000446', '2024-12-04');
 
 -- --------------------------------------------------------
 
@@ -48,6 +78,31 @@ INSERT INTO `buku` (`id`, `kode`, `judul`, `gambar`, `penulis`, `penerbit`, `tah
 (15, 39874589, 'Sastra Korean Internasional', 'download.jpeg', 'Airlangga', 'Airlangga', 2020, 'sastrakorean502.png', 'E2MHA2'),
 (16, 1234578, 'Bahasa Arab', 'download_(2).jpeg', 'Airlangga', 'Airlangga', 2023, 'sastraindonesia301.png', 'CPNEG3'),
 (17, 876543, 'Kesenian', 'default.jpg', 'Airlangga', 'Airlangga', 2020, 'kesenian116.png', 'HG6NP4');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pembeli`
+--
+
+CREATE TABLE `pembeli` (
+  `id` int(11) NOT NULL,
+  `pembeli` varchar(128) DEFAULT NULL,
+  `date` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pembeli`
+--
+
+INSERT INTO `pembeli` (`id`, `pembeli`, `date`) VALUES
+(24, 'Pembeli Ke 1', 1708815600),
+(29, 'Pembeli Ke 25', 1721599200),
+(31, 'Rivi', 1729807200),
+(44, 'Pembeli Ke 44', 1731798000),
+(45, 'Rubyzza', 1731798000),
+(46, 'lulu', 1731798000),
+(51, 'Pembeli Ke 51', 1733266800);
 
 -- --------------------------------------------------------
 
@@ -96,7 +151,7 @@ CREATE TABLE `pengembalian` (
 --
 
 INSERT INTO `pengembalian` (`id`, `siswa_id`, `buku_id`, `tanggal_pinjam`, `tanggal_pengembalian`, `keterangan`) VALUES
-(48, 40, 17, 1693286423, 1693398824, 'Buku Sudah diKembalikan');
+(48, 39, 17, 1693260000, 0, 'Buku Sudah diKembalikan');
 
 -- --------------------------------------------------------
 
@@ -127,6 +182,33 @@ INSERT INTO `siswa` (`id`, `nama`, `foto`, `nis`, `qrcode_path`, `qrcode_data`) 
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id` int(11) NOT NULL,
+  `pembeli_id` int(11) NOT NULL,
+  `barang_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `pembeli_id`, `barang_id`, `qty`, `jumlah`, `date`) VALUES
+(93, 31, 25, 60, 0, '2024-10-26 11:23:03'),
+(95, 31, 24, 12, 0, '2024-10-26 11:46:52'),
+(102, 46, 21, 1, 0, '2024-11-17 14:42:32'),
+(104, 45, 21, 2, 0, '2024-11-17 14:42:59'),
+(105, 45, 21, 5, 0, '2024-11-17 14:43:07'),
+(106, 46, 21, 2, 0, '2024-11-17 14:43:46');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `user`
 --
 
@@ -146,8 +228,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(8, 'Rivi Rihlati Fadlilah', 'rivi@gmail.com', 'Sample_User_Icon.png', '$2y$10$M9yyMAHE1W9q7o2ejZ0zXeJgzgdxUSM1D8jZbFfMH0OvQ0M547kUa', 2, 1, 1680616189),
-(13, 'Raafi Ichsani', 'ichsaniraafi@gmail.com', '3237472.png', '$2y$10$nKe1.9iitFgM.I5noya8I.C0U.fj4eiNyufmbx9VgqAPBa1p9X0ei', 1, 1, 1681201222);
+(8, 'Rivi Rihlati Fadlilah', 'riviri@gmail.com', 'Sample_User_Icon.png', '$2y$10$M9yyMAHE1W9q7o2ejZ0zXeJgzgdxUSM1D8jZbFfMH0OvQ0M547kUa', 2, 1, 1680616189),
+(13, 'Raafi Ichsani', 'ichsaniraafi@gmail.com', '3237472.png', '$2y$10$C2mCpkq3ukmlD2kuEm6I8eIo9kET2JEYBxEQaB3n9CgEgDxUihlCK', 1, 1, 1681201222),
+(15, 'Dipa Faqih Fahreezi', 'dipafahreezi@gmail.com', 'default.jpg', '$2y$10$rXNUAsF1efouA6iZeuL60OGPDgShPYg/bVkpMyHt6N7wHjhRuQfAi', 2, 1, 1708850329);
 
 -- --------------------------------------------------------
 
@@ -173,7 +256,16 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (22, 1, 16),
 (23, 1, 18),
 (24, 1, 19),
-(25, 1, 20);
+(25, 1, 20),
+(26, 1, 21),
+(27, 1, 22),
+(28, 1, 23),
+(29, 2, 22),
+(30, 2, 23),
+(31, 1, 24),
+(32, 2, 24),
+(33, 1, 25),
+(34, 2, 25);
 
 -- --------------------------------------------------------
 
@@ -197,7 +289,11 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 (16, 'Perpustakaan'),
 (18, 'Buku'),
 (19, 'Peminjaman'),
-(20, 'Pengembalian');
+(20, 'Pengembalian'),
+(21, 'Barang'),
+(22, 'History'),
+(23, 'Pembeli'),
+(25, 'Transaksi');
 
 -- --------------------------------------------------------
 
@@ -248,16 +344,31 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (16, 16, 'Data Siswa', 'perpustakaan', 'fas fa-fw fa-light fa-graduation-cap', 1),
 (20, 18, 'Data Buku', 'buku', 'fas fa-fw fa-light fa-book', 1),
 (21, 19, 'Peminjaman Buku', 'peminjaman', 'fas fa-fw fad fa-book-reader', 1),
-(22, 20, 'Pengembalian Buku', 'pengembalian', 'fas fa-fw fad fa-undo', 1);
+(22, 20, 'Pengembalian Buku', 'pengembalian', 'fas fa-fw fad fa-undo', 1),
+(23, 21, 'Data Barang', 'Barang/index', 'fas fa-box', 1),
+(24, 22, 'Rekapitulasi Penjualan', 'History/index', 'fas fa-solid fa-store', 1),
+(25, 23, 'Pembeli', 'pembeli/index', 'fas fa-solid fa-users', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indeks untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `buku`
 --
 ALTER TABLE `buku`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `pembeli`
+--
+ALTER TABLE `pembeli`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -276,6 +387,12 @@ ALTER TABLE `pengembalian`
 -- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -313,10 +430,22 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `barang`
+--
+ALTER TABLE `barang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
 -- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT untuk tabel `pembeli`
+--
+ALTER TABLE `pembeli`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman`
@@ -337,22 +466,28 @@ ALTER TABLE `siswa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
+-- AUTO_INCREMENT untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+
+--
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_role`
@@ -364,7 +499,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
